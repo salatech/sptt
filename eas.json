@@ -26,6 +26,13 @@
 			"distribution": "internal"
 		},
 		"production": {
+			"ios": {
+				"simulator": false,
+				"distribution": "store"
+			},
+			"android": {
+				"buildType": "app-bundle"
+			},
 			"autoIncrement": true
 		}
 	},
