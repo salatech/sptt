@@ -1,50 +1,83 @@
-# Welcome to your Expo app 👋
+# Speech-to-Text App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native application that allows users to convert speech to text using the device's microphone. The app utilizes `expo-av` for audio recording and includes mock functionality for transcription.
 
-## Get started
+## Table of Contents
 
-1. Install dependencies
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
+- [License](#license)
 
+## Features
+
+- **Audio Recording**: Records audio through the device's microphone.
+- **Speech Transcription**: Displays a placeholder transcript (mock transcription).
+- **Switch between WebSocket and gRPC**: Mock feature to toggle connection type.
+- **UI Feedback**: Displays an activity indicator while loading and shows a snackbar message for recording start/stop.
+
+## Screenshots
+
+![Screenshot](path_to_screenshot_image)
+
+## Installation
+
+### Prerequisites
+
+- Node.js
+- Expo CLI
+- React Native environment setup ([Guide for setting up React Native](https://reactnative.dev/docs/environment-setup))
+
+### Steps
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/speech-to-text-app.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd speech-to-text-app
+   ```
+3. Install the dependencies:
    ```bash
    npm install
    ```
-
-2. Start the app
-
+4. Start the app:
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## Usage
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. Open the app in your emulator or on a physical device.
+2. Press the microphone icon to start recording.
+3. Press the microphone icon again to stop recording.
+4. View the mock transcription displayed in the text area.
+5. Toggle between WebSocket and gRPC (mock feature).
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Code Overview
 
-## Get a fresh project
+### Components
 
-When you're ready, run:
+- **SpeechToTextApp**: The main component that handles recording, transcription, and UI.
 
-```bash
-npm run reset-project
-```
+### Important Functions
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- `startRecording`: Requests microphone permissions, sets up recording configuration, and starts recording audio.
+- `stopRecording`: Stops the audio recording and sets a mock transcription result.
+- `toggleConnectionType`: Switches between WebSocket and gRPC (for future backend integration).
 
-## Learn more
+## Dependencies
 
-To learn more about developing your project with Expo, look at the following resources:
+- [React Native](https://reactnative.dev/) - A framework for building native apps using React.
+- [expo-av](https://docs.expo.dev/versions/latest/sdk/av/) - Expo library for audio and video playback and recording.
+- [react-native-paper](https://callstack.github.io/react-native-paper/) - Material Design library for React Native.
+- [@expo/vector-icons](https://docs.expo.dev/guides/icons/) - Icon library for Expo projects.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Future Improvements
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Implement actual transcription functionality using a third-party speech-to-text API.
+- Enhance error handling for various edge cases during recording.
+- Add a settings screen to configure recording options.

@@ -20,41 +20,46 @@ const SpeechToTextApp = () => {
 	const startRecording = async () => {
 		setLoading(true);
 		try {
+			// Request microphone permissions
 			const { status } = await Audio.requestPermissionsAsync();
-			if (status === "granted") {
-				const recording = new Audio.Recording();
-				await recording.prepareToRecordAsync({
-					android: {
-						extension: ".m4a",
-						outputFormat: 3, // MPEG_4
-						audioEncoder: 3, // AAC
-						sampleRate: 44100,
-						numberOfChannels: 2,
-						bitRate: 128000,
-					},
-					ios: {
-						extension: ".caf",
-						audioQuality: 96,
-						sampleRate: 44100,
-						numberOfChannels: 2,
-						bitRate: 128000,
-						linearPCMBitDepth: 16,
-						linearPCMIsBigEndian: false,
-						linearPCMIsFloat: false,
-					},
-					web: {
-						mimeType: "audio/webm",
-						bitsPerSecond: 128000,
-					},
-				});
-				await recording.startAsync();
-				setRecording(recording);
-				setShowSnackbar(true);
-			} else {
-				console.log("Permission not granted");
+			if (status !== "granted") {
+				console.log("Permission to access microphone was denied");
+				setLoading(false);
+				return;
 			}
+
+			// Set up and start recording
+			const recording = new Audio.Recording();
+			await recording.prepareToRecordAsync({
+				android: {
+					extension: ".m4a",
+					outputFormat: 3, // MPEG_4
+					audioEncoder: 3, // AAC
+					sampleRate: 44100,
+					numberOfChannels: 2,
+					bitRate: 128000,
+				},
+				ios: {
+					extension: ".caf",
+					audioQuality: 96,
+					sampleRate: 44100,
+					numberOfChannels: 2,
+					bitRate: 128000,
+					linearPCMBitDepth: 16,
+					linearPCMIsBigEndian: false,
+					linearPCMIsFloat: false,
+				},
+				web: {
+					mimeType: "audio/webm",
+					bitsPerSecond: 128000,
+				},
+			});
+			await recording.startAsync();
+			setRecording(recording);
+			setShowSnackbar(true);
+			console.log("Recording started");
 		} catch (err) {
-			console.error("Failed to start recording", err);
+			console.error("Failed to start recording:", err);
 		}
 		setLoading(false);
 	};
@@ -62,15 +67,22 @@ const SpeechToTextApp = () => {
 	const stopRecording = async () => {
 		setLoading(true);
 		if (recording) {
-			await recording.stopAndUnloadAsync();
-			const uri = recording.getURI();
-			setRecording(null);
-			// Call your API with the audio file URI here and get the transcription
-			setTranscript("Transcription result goes here...");
+			try {
+				await recording.stopAndUnloadAsync();
+				const uri = recording.getURI();
+				setRecording(null);
+
+				// Mock transcription logic for now
+				setTranscript("Transcription result goes here...");
+				console.log("Recording stopped and saved at", uri);
+			} catch (err) {
+				console.error("Failed to stop recording:", err);
+			}
 		}
 		setLoading(false);
 	};
-	// Toggle function for switching between WebSocket and gRPC
+
+	// Toggle between WebSocket and gRPC (mock functionality)
 	const toggleConnectionType = () => {
 		setUseWebSocket((prev) => !prev);
 	};
